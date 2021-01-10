@@ -1,6 +1,7 @@
 import Foundation
 import Publish
 import Plot
+import SplashPublishPlugin
 
 // This type acts as the configuration for your website.
 struct Brendalaupg: Website {
@@ -16,7 +17,7 @@ struct Brendalaupg: Website {
     }
 
     // Update these properties to configure your website:
-    var url = URL(string: "https://brendalaupg.com")!
+    var url = URL(string: "brendalaupg.github.io")!
     var name = "Brenda Lau"
     var description = "Articles and devlogs."
     var language: Language { .english }
@@ -24,4 +25,9 @@ struct Brendalaupg: Website {
 }
 
 // This will generate your website using the built-in Foundation theme:
-try Brendalaupg().publish(withTheme: .brendasTheme)
+//try Brendalaupg().publish(withTheme: .brendasTheme)
+try Brendalaupg().publish(
+    withTheme: .brendasTheme,
+    additionalSteps: [.deploy(using: .gitHub("brendalaupg/brendalaupg"))],
+    plugins: [.splash(withClassPrefix: "")]
+)
